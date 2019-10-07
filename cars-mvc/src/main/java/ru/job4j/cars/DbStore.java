@@ -1,7 +1,6 @@
-package ru.job4j.cars2;
+package ru.job4j.cars;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 

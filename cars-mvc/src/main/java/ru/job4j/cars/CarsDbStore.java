@@ -1,4 +1,4 @@
-package ru.job4j.cars2;
+package ru.job4j.cars;
 
 import javax.persistence.Query;
 import java.sql.Timestamp;

@@ -1,4 +1,4 @@
-package ru.job4j.cars2;
+package ru.job4j.cars;
 
 import org.junit.After;
 import org.junit.Test;
@@ -23,8 +23,8 @@ import static org.mockito.Mockito.*;
  */
 public class ServletTest {
 
-    private final EntityManagerFactory factory = EntityManagerFactorySigl.getEntityManagerFactory();
-    private CarsDbStore carsdb = new CarsDbStore();
+    private final EntityManagerFactory factory = ru.job4j.cars.EntityManagerFactorySigl.getEntityManagerFactory();
+    private ru.job4j.cars.CarsDbStore carsdb = new ru.job4j.cars.CarsDbStore();
 
     /**
      * Метод тестирует сервлет AddServlet метод doGet (переход на страницу добавления объявления
@@ -41,7 +41,7 @@ public class ServletTest {
         when(req.getParameter("new")).thenReturn("11");
         when(req.getRequestDispatcher("/cars/add.jsp")).thenReturn(reqd);
 
-        new AddServlet().doGet(req, resp);
+        new ru.job4j.cars.AddServlet().doGet(req, resp);
         verify(req, times(1)).getRequestDispatcher("/cars/add.jsp");
         verify(resp, never()).sendRedirect("/cars/list");
 
@@ -60,7 +60,7 @@ public class ServletTest {
 
         when(req.getParameter("new")).thenReturn(null);
 
-        new AddServlet().doGet(req, resp);
+        new ru.job4j.cars.AddServlet().doGet(req, resp);
         verify(req, never()).getRequestDispatcher("/cars/add.jsp");
         verify(resp, times(1)).sendRedirect("/cars/list");
 
@@ -77,8 +77,8 @@ public class ServletTest {
         HttpServletResponse resp = mock(HttpServletResponse.class);
         HttpSession sess = mock(HttpSession.class);
 
-        DbStore<UsersEntity> dbu = new DbStore<>(UsersEntity.class);
-        int idx = dbu.add(new UsersEntity("test", "123", "wwww"));
+        ru.job4j.cars.DbStore<ru.job4j.cars.UsersEntity> dbu = new ru.job4j.cars.DbStore<>(ru.job4j.cars.UsersEntity.class);
+        int idx = dbu.add(new ru.job4j.cars.UsersEntity("test", "123", "wwww"));
 
         when(req.getSession()).thenReturn(sess);
         when(req.getParameter("note")).thenReturn("test");
@@ -97,8 +97,8 @@ public class ServletTest {
         when(req.getParameter("drive")).thenReturn("test");
         when(req.getParameter("wheel")).thenReturn("test");
 
-        new AddServlet().doPost(req, resp);
-        CarEntity car = new CarEntity("test");
+        new ru.job4j.cars.AddServlet().doPost(req, resp);
+        ru.job4j.cars.CarEntity car = new ru.job4j.cars.CarEntity("test");
         idx = carsdb.findIdByModel(car);
         assertTrue(idx > 0);
     }
@@ -116,17 +116,17 @@ public class ServletTest {
 
         when(req.getRequestDispatcher("/cars/car.jsp")).thenReturn(reqd);
 
-        CarEntity car = new CarEntity("test2");
+        ru.job4j.cars.CarEntity car = new ru.job4j.cars.CarEntity("test2");
         int idx = carsdb.add(car);
 
         when(req.getParameter("id")).thenReturn(Integer.toString(idx));
 
         ArgumentCaptor<Object> args = ArgumentCaptor.forClass(Object.class);
 
-        new CarServlet().doGet(req, resp);
+        new ru.job4j.cars.CarServlet().doGet(req, resp);
 
         verify(req, times(1)).setAttribute(anyString(), args.capture());
-        CarEntity carresult = (CarEntity) args.getValue();
+        ru.job4j.cars.CarEntity carresult = (ru.job4j.cars.CarEntity) args.getValue();
         verify(req, times(1)).getRequestDispatcher("/cars/car.jsp");
         assertTrue(car.equals(carresult));
     }
@@ -141,14 +141,14 @@ public class ServletTest {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
 
-        CarEntity car = new CarEntity("test3");
+        ru.job4j.cars.CarEntity car = new ru.job4j.cars.CarEntity("test3");
         int idx = carsdb.add(car);
 
         when(req.getParameter("cid")).thenReturn(Integer.toString(idx));
 
-        new CarServlet().doPost(req, resp);
+        new ru.job4j.cars.CarServlet().doPost(req, resp);
 
-        CarEntity car2 = carsdb.findById(idx);
+        ru.job4j.cars.CarEntity car2 = carsdb.findById(idx);
         assertTrue(car.isOld() != car2.isOld());
     }
 
@@ -165,24 +165,24 @@ public class ServletTest {
 
         when(req.getRequestDispatcher("/cars/list.jsp")).thenReturn(reqd);
 
-        carsdb.add(new CarEntity("test2"));
-        carsdb.add(new CarEntity("test3"));
-        carsdb.add(new CarEntity("test4"));
+        carsdb.add(new ru.job4j.cars.CarEntity("test2"));
+        carsdb.add(new ru.job4j.cars.CarEntity("test3"));
+        carsdb.add(new ru.job4j.cars.CarEntity("test4"));
 
         ArgumentCaptor<Object> args = ArgumentCaptor.forClass(Object.class);
 
-        new ListServlet().doGet(req, resp);
+        new ru.job4j.cars.ListServlet().doGet(req, resp);
 
         verify(req, times(1)).setAttribute(eq("carlist"), args.capture());
-        ArrayList<CarEntity> result = (ArrayList<CarEntity>) args.getValue();
+        ArrayList<ru.job4j.cars.CarEntity> result = (ArrayList<ru.job4j.cars.CarEntity>) args.getValue();
         verify(req, times(1)).getRequestDispatcher("/cars/list.jsp");
         assertTrue(result.size() == 3);
     }
 
     @After
     public void afterDo() {
-        List<CarEntity> all = carsdb.findAll();
-        for (CarEntity c: all) {
+        List<ru.job4j.cars.CarEntity> all = carsdb.findAll();
+        for (ru.job4j.cars.CarEntity c: all) {
             carsdb.delete(c.getId());
         }
     }

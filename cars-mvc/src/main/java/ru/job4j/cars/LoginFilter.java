@@ -1,4 +1,4 @@
-package ru.job4j.cars2;
+package ru.job4j.cars;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -6,11 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 public class LoginFilter  implements Filter {
 
-    @Override
+/*    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         InitFillValueDb db = new InitFillValueDb();
 
@@ -30,7 +29,7 @@ public class LoginFilter  implements Filter {
             dbmd.add(new ModelEntity("ModelA" + mrk.getId(), mrk));
             dbmd.add(new ModelEntity("ModelC" + mrk.getId(), mrk));
         }
-    }
+    } */
 
     /**
      * Фильтр проверяет сформинрован ли пользователь в сессии

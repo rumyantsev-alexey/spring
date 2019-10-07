@@ -1,11 +1,10 @@
-package ru.job4j.cars2;
+package ru.job4j.cars;
 
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.UniqueConstraint;
 
 @MappedSuperclass
 @EqualsAndHashCode(exclude = {"id"})

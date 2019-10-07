@@ -1,4 +1,4 @@
-package ru.job4j.cars2;
+package ru.job4j.cars;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,20 +11,21 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-public class CityEntity extends AbsProjectEntity {
+public class ModelEntity extends AbsProjectEntity {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "city", fetch = FetchType.EAGER)
-    private Set<UsersEntity> user;
+    @ManyToOne (cascade = {CascadeType.REFRESH})
+    private MarkEntity mark;
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "city", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "model", fetch = FetchType.EAGER)
     private Set<CarEntity> car = new HashSet<>();
 
-    public CityEntity(final String name) {
+    public ModelEntity(String name, MarkEntity mark) {
         super.setName(name);
+        this.mark = mark;
     }
 
 }

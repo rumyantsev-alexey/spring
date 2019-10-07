@@ -1,4 +1,4 @@
-package ru.job4j.cars2;
+package ru.job4j.cars;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,15 +11,14 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-public class TransmissionEntity extends AbsProjectEntity {
+public class WheelEntity extends AbsProjectEntity {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "trans", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "wheel", fetch = FetchType.EAGER)
     private Set<CarEntity> car = new HashSet<>();
 
-    public TransmissionEntity(String name) {
+    public WheelEntity(String name) {
         super.setName(name);
     }
-
 }
