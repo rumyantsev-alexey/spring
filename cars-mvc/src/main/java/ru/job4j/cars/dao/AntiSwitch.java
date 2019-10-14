@@ -1,4 +1,4 @@
-package ru.job4j.cars;
+package ru.job4j.cars.dao;
 
 import java.util.HashMap;
 import java.util.List;

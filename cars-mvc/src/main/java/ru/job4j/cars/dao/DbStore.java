@@ -1,4 +1,6 @@
-package ru.job4j.cars;
+package ru.job4j.cars.dao;
+
+import ru.job4j.cars.models.AbsProjectEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,7 +26,7 @@ public class DbStore<K extends AbsProjectEntity> implements Store<K> {
         entityname = names[names.length - 1];
     }
 
-    protected String getEntityname() {
+    public String getEntityname() {
         return entityname;
     }
 

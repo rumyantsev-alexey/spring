@@ -1,4 +1,4 @@
-package ru.job4j.cars;
+package ru.job4j.cars.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 //@Embeddable
 @Entity
 @NoArgsConstructor
-public class FotoEntity extends  AbsProjectEntity {
+public class FotoEntity extends AbsProjectEntity {
 
     @Getter
     @Setter

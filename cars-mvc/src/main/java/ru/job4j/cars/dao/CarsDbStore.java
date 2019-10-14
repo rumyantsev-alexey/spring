@@ -1,4 +1,6 @@
-package ru.job4j.cars;
+package ru.job4j.cars.dao;
+
+import ru.job4j.cars.models.CarEntity;
 
 import javax.persistence.Query;
 import java.sql.Timestamp;
@@ -31,7 +33,7 @@ public class CarsDbStore extends DbStore<CarEntity> {
      * @param filters вписок параметров фильтра
      * @return списрк объявлений
      */
-    protected List<CarEntity> findAllCarsWithFilter(final List<String> filters) {
+    public List<CarEntity> findAllCarsWithFilter(final List<String> filters) {
         return super.tx(
                 session -> {
                     String qr = "FROM CarEntity C " + answ.run(filters.get(0), filters) + " order by C.id";

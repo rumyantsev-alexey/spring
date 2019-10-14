@@ -1,4 +1,4 @@
-package ru.job4j.cars;
+package ru.job4j.cars.dao;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

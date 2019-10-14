@@ -17,7 +17,7 @@
     <script>
 
         function goAdd() {
-            window.location.href = '/cars/add?new';
+            window.location.href = '/cars/add';
         }
 
         jQuery(document).ready(function($) {
@@ -69,7 +69,7 @@
         <input type='submit' class="btn btn-default" name='but3' value='Logout'/>
     </form>
     <br>
-    <c:if test="${sessionScope.loginUser.name != 'anonymus'}">
+    <c:if test="${sessionScope.loginUser.name != 'anonymous'}">
         <form method='get' action='/cars/add'>
            <input type='button' class="btn btn-default" name='but2' value='Add new ad' onclick="goAdd();" />
         </form>

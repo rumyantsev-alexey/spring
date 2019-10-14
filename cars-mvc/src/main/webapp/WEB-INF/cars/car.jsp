@@ -69,7 +69,7 @@
                 <c:out value=" disabled "/>
             </c:if>
             >Объявление актуально</label><br>
-            <form method='post' action='/cars/ad'>
+            <form method='post' action='/cars/ad?id=<c:out value="${requestScope.curcar.id}"/>'>
                 <input type="hidden" name='cid' value='<c:out value="${requestScope.curcar.id}"/>'/>
                 <input type='submit' class="btn btn-default" id="save" name='save' value='Записать'  disabled />
             </form><br>

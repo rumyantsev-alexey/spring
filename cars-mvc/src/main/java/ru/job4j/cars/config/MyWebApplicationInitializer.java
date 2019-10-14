@@ -4,7 +4,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import ru.job4j.cars.InitFillValueDb;
+import ru.job4j.cars.models.InitFillValueDb;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;

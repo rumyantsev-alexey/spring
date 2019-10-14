@@ -4,7 +4,7 @@
 <c:forEach items="${requestScope.carlist}"  var="clist">
     <tr class='clickable-row' data-href='/cars/ad?id=${clist.id}'>
         <td>
-                ${clist.id}
+            <a href='/cars/ad?id=${clist.id}'>${clist.id}</a>
         </td>
         <td>
                 ${clist.model.name}

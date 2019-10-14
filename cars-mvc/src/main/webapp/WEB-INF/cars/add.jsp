@@ -21,9 +21,8 @@
                 var mm = $("#mark").val();
                 $.ajax({
                     type: "POST",
-                    url: "/cars/list",
-                    contentType: 'application/json',
-                    data:JSON.stringify({action:"mark", mark:$("#mark").val()}),
+                    url: "/cars/models",
+                    data:"mark=" + mm,
                     success: function(data, textStatus, jqXHR){
                         mlist = jQuery.parseJSON(jqXHR.responseText);
                         $("#model").html("");

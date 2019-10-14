@@ -1,5 +1,6 @@
-package ru.job4j.cars;
+package ru.job4j.cars.models;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"email", "city", "car"})
 public class UsersEntity extends AbsProjectEntity {
 
     @Getter

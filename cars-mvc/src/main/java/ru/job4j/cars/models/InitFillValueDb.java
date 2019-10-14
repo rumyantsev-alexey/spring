@@ -1,4 +1,6 @@
-package ru.job4j.cars;
+package ru.job4j.cars.models;
+
+import ru.job4j.cars.dao.DbStore;
 
 import java.util.Arrays;
 import java.util.List;
