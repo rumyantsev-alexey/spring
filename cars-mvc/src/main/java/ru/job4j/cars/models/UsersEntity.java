@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"email", "city", "car"})
+@EqualsAndHashCode(exclude = {"email", "city", "car"}, callSuper = true)
 public class UsersEntity extends AbsProjectEntity {
 
     @Getter
@@ -37,7 +37,6 @@ public class UsersEntity extends AbsProjectEntity {
         super.setName(name);
         this.password = password;
         this.email = email;
-//        this.city = city;
     }
 
 }

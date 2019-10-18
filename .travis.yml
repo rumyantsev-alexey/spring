@@ -4,7 +4,7 @@ language: java
 sudo: true
 
 jdk:
-- openjdk11
+- openjdk12
 
 services:
 - postgresql
@@ -19,7 +19,7 @@ after_success:
 
 env:
   global:
-    - CODECOV_TOKEN="e5ea4254-a37a-4bcf-b6ef-8d25c83a5ac5"
+    - CODECOV_TOKEN="1e836ccd-df7f-4b14-ba80-996c04464519"
 
 # Отправлять уведомление на почту youremail@smtp.ru (Изменить на свою) если сборка   упала
 notifications:
@@ -27,4 +27,4 @@ notifications:
     recipients:
       - telesyn73@mail.ru
     on_success: never # default: change
-    on_failure: always # default: always
+    on_failure: never # default: always

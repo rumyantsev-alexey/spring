@@ -11,7 +11,6 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-//@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class BodytypeEntity extends AbsProjectEntity {
 
     @Getter

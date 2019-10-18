@@ -1,5 +1,7 @@
 package ru.job4j.cars.controller;
 
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import ru.job4j.cars.forms.ActionListForm;
 import ru.job4j.cars.forms.AddAdsForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.cars.dao.CarsDbStore;
 import ru.job4j.cars.models.*;
-import ru.job4j.cars.dao.DbStore;
+import ru.job4j.cars.repositories.InitFillValueDb;
+import ru.job4j.cars.services.*;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,32 +27,38 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/cars")
-//@SessionAttributes(value = "loginUser", types = UsersEntity.class)
 public class CarsController {
     private static final String ANON = "anonymous";
 
     @Autowired
-    DbStore<UsersEntity> userdb;
+    UserService userdb;
     @Autowired
-    DbStore<MarkEntity> mdb;
+    MarkService mdb;
     @Autowired
-    DbStore<ModelEntity> mddb;
+    ModelService mddb;
     @Autowired
-    CarsDbStore acdb;
+    CarService acdb;
     @Autowired
-    DbStore<CityEntity> citydb;
+    CityService citydb;
     @Autowired
-    DbStore<TransmissionEntity> trdb;
+    TransmissionService trdb;
     @Autowired
-    DbStore<BodytypeEntity> bddb;
+    BodytypeService bddb;
     @Autowired
-    DbStore<EnginestypeEntity> edb;
+    EnginestypeService edb;
     @Autowired
-    DbStore<DriveunitEntity> drdb;
+    DriveunitService drdb;
     @Autowired
-    DbStore<WheelEntity> wdb;
+    WheelService wdb;
     @Autowired
-    DbStore<FotoEntity> fdb;
+    FotoService fdb;
+    @Autowired
+    InitFillValueDb rrr;
+
+    @PostConstruct
+    public void initDb() {
+        rrr.init();
+    }
 
     @GetMapping(value = "/login")
     public String login(@RequestParam(value = "login", required = false, defaultValue = "") String login, HttpSession session) {
@@ -117,7 +126,7 @@ public class CarsController {
         car.setWheel(wdb.findById(wdb.findIdByModel(new WheelEntity(form.getWheel()))));
         Set<FotoEntity> fotos = new HashSet<>();
         FotoEntity ft = null;
-        for (var i = 0; i < form.getUpfile().length; i++) {
+        for (var i = 0; i < form.getUpfile().length && form.getUpfile()[i].getSize() != 0; i++) {
             ft = new FotoEntity();
             ft.setName(form.getUpfile()[i].getOriginalFilename());
             ft.setFoto(form.getUpfile()[i].getBytes());
