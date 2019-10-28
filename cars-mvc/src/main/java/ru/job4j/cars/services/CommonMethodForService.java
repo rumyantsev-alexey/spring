@@ -1,10 +1,7 @@
 package ru.job4j.cars.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
 import ru.job4j.cars.models.AbsProjectEntity;
-import ru.job4j.cars.repositories.InitFillValueDb;
 import ru.job4j.cars.repositories.MyRepository;
 
 import java.util.List;
@@ -62,4 +59,14 @@ class CommonMethodForService<K extends AbsProjectEntity> {
         }
         return result;
     }
+
+    public  K findByName(String name) {
+        K result = null;
+        int i = findIdByName(name);
+        if (i > 0) {
+            result = repo.findById(i).get();
+        }
+        return result;
+    }
+
 }

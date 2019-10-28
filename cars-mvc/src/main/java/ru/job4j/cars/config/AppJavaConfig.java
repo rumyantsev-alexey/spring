@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
-@ComponentScan("ru.job4j.cars")
+@ComponentScan("ru.job4j.cars.*")
 public class AppJavaConfig {
 
     @Bean(name = "multipartResolver")

@@ -1,29 +1,25 @@
 package ru.job4j.cars.controller;
 
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
-import ru.job4j.cars.forms.ActionListForm;
-import ru.job4j.cars.forms.AddAdsForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.cars.models.*;
 import ru.job4j.cars.repositories.InitFillValueDb;
 import ru.job4j.cars.services.*;
+import ru.job4j.cars.models.*;
+import ru.job4j.cars.forms.*;
+import org.springframework.http.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/cars")
@@ -31,29 +27,29 @@ public class CarsController {
     private static final String ANON = "anonymous";
 
     @Autowired
-    UserService userdb;
+    private UserService userdb;
     @Autowired
-    MarkService mdb;
+    private MarkService mdb;
     @Autowired
-    ModelService mddb;
+    private ModelService mddb;
     @Autowired
-    CarService acdb;
+    private CarService acdb;
     @Autowired
-    CityService citydb;
+    private CityService citydb;
     @Autowired
-    TransmissionService trdb;
+    private TransmissionService trdb;
     @Autowired
-    BodytypeService bddb;
+    private BodytypeService bddb;
     @Autowired
-    EnginestypeService edb;
+    private EnginestypeService edb;
     @Autowired
-    DriveunitService drdb;
+    private DriveunitService drdb;
     @Autowired
-    WheelService wdb;
+    private WheelService wdb;
     @Autowired
-    FotoService fdb;
+    private FotoService fdb;
     @Autowired
-    InitFillValueDb rrr;
+    private InitFillValueDb rrr;
 
     @PostConstruct
     public void initDb() {
@@ -61,21 +57,13 @@ public class CarsController {
     }
 
     @GetMapping(value = "/login")
-    public String login(@RequestParam(value = "login", required = false, defaultValue = "") String login, HttpSession session) {
-        String result = "login";
-        if (login.equals(ANON)) {
-            session.setAttribute("loginUser", new UsersEntity(login, "", null));
-            result = "redirect:/cars/list";
-        }
-        return result;
+    public String login() {
+        return "login";
     }
 
     @PostMapping(value = "/login")
-    public String loginWithUser(@RequestParam(name = "login") String login, @RequestParam(name = "pass") String pass,  HttpSession session) {
-        UsersEntity user = new UsersEntity(login, pass, null);
-        user = userdb.findById(userdb.findIdByModel(user));
-        session.setAttribute("loginUser", user);
-        return user == null ? "login" : "list";
+    public String loginWithUser() {
+        return "list";
     }
 
     @GetMapping(value = "/list")
@@ -84,6 +72,7 @@ public class CarsController {
         model.addAttribute("MarkEntityList", mdb.findAll());
         return "list";
     }
+
 
     @PostMapping(value = "/list", consumes = "application/json")
     public String getListAdsAction(@RequestBody ActionListForm actlist, Model model) {
@@ -108,9 +97,9 @@ public class CarsController {
     }
 
     @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public String postNewAdForm(@ModelAttribute AddAdsForm form, Model model,  HttpSession session) throws IOException {
+    public String postNewAdForm(@ModelAttribute AddAdsForm form, Model model,  HttpSession session, Principal princ) throws IOException {
         CarEntity car = new CarEntity(form.getNote());
-        car.setUser((UsersEntity) session.getAttribute("loginUser"));
+        car.setUser(userdb.findByName(princ.getName()));
         car.setCity(citydb.findById(citydb.findIdByModel(new CityEntity(form.getCity()))));
         car.setMark(mdb.findById(mdb.findIdByModel(new MarkEntity(form.getMark()))));
         car.setModel(mddb.findById(mddb.findIdByModel(new ModelEntity(form.getModel(), car.getMark()))));
@@ -146,7 +135,8 @@ public class CarsController {
     }
 
     @GetMapping(value = "/ad")
-    public String showAd(@RequestParam(value = "id") int id, Model model) {
+    public String showAd(@RequestParam(value = "id") int id, Model model, Principal princ) {
+        model.addAttribute("loginUser", princ.getName());
         model.addAttribute("curcar", acdb.findById(id));
         return "car";
     }
@@ -167,4 +157,5 @@ public class CarsController {
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
         return responseEntity;
     }
+
 }

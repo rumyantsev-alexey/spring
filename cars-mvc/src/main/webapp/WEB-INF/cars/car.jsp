@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -62,10 +63,10 @@
                 <img src="/cars/image?cid=${foto.id}" height="100" width="200"/>
             </c:forEach>
             <br><label class="checkbox-inline"><input type="checkbox" value="" id="check" onclick="checkFun();"
-                <c:if test="${!requestScope.curcar.old}">
-                    <c:out value=" checked "/>
-                </c:if>
-            <c:if test="${sessionScope.loginUser.name != requestScope.curcar.user.name}">
+            <c:if test="${!requestScope.curcar.old}">
+                <c:out value=" checked "/>
+            </c:if>
+            <c:if test="${requestScope.loginUser != requestScope.curcar.user.name}">
                 <c:out value=" disabled "/>
             </c:if>
             >Объявление актуально</label><br>

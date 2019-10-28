@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -73,8 +74,10 @@
         </script>
 
         <h4>
-            <b>Новое объявление пользователя</b>     ${sessionScope.loginUser.name}:
-        </h4>
+            <security:authorize access="isAuthenticated()">
+                <b>Новое объявление пользователя</b>     <security:authentication property="principal" />:
+            </security:authorize>
+       </h4>
         <div class="container-fluid">
         <form id="newAd" name="newAd" method='post' action='/cars/add' enctype="multipart/form-data">
             <div class="row">

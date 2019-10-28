@@ -1,5 +1,6 @@
 package ru.job4j.cars.config;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -8,6 +9,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
+@Order(1)
 public class MyWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -27,7 +29,7 @@ public class MyWebApplicationInitializer extends AbstractAnnotationConfigDispatc
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {AppJavaConfig.class};
+        return new Class[] {AppJavaConfig.class, SpringDataConfig.class, SpringSecurityConfig.class};
     }
 
     @Override

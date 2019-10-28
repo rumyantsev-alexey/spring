@@ -10,7 +10,7 @@
     <body>
         <div class="col-sm-2"></div>
         <h1>Please login</h1>
-        <form method='post' class="form-horizontal" action='/cars/login'>
+        <form method='post' class="form-horizontal" action='/cars/login/process'>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="login">Login:</label>
                 <div class="col-sm-10">
@@ -27,10 +27,7 @@
             <input type='reset' class="btn btn-default" name='but1' value='Reset'/>
             <input type='submit' class="btn btn-default" name='but2' value='Login'/>
         </form>
-        <form method='get' class="form-horizontal" action='/cars/login?login=anonymous'>
-            <input type="hidden" name='login' value='anonymous'/>
-            <input type="hidden" name='pass' value=''/>
-            <div class="col-sm-3"></div>
+        <form method='get' class="form-horizontal" action='/cars/list'>
             <div class="col-sm-3">
                  <input type='submit' class="btn btn-default" name='but2' value='Login as Anonymous'/>
             </div>

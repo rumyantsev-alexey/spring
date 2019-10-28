@@ -21,5 +21,5 @@ public class AddAdsForm {
     private int power;
     private String drive;
     private String wheel;
-    MultipartFile[] upfile;
+    private MultipartFile[] upfile;
 }

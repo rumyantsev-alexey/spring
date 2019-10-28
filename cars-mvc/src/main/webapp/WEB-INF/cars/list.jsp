@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -62,18 +63,22 @@
 
     </script>
 
-    Current user:${sessionScope.loginUser.name}<br>
-    <form method='post' action='/cars/login'>
-        <input type="hidden" name='login' value=''/>
-        <input type="hidden" name='pass' value=''/>
-        <input type='submit' class="btn btn-default" name='but3' value='Logout'/>
-    </form>
-    <br>
-    <c:if test="${sessionScope.loginUser.name != 'anonymous'}">
+    <security:authorize access="isAuthenticated()">
+        Current user:<security:authentication property="principal" /> <br>
+        <form method='post' action='/logout'>
+                <input type='submit' class="btn btn-default" name='but3' value='Logout'/>
+        </form>
+        <br>
         <form method='get' action='/cars/add'>
            <input type='button' class="btn btn-default" name='but2' value='Add new ad' onclick="goAdd();" />
         </form>
-    </c:if>
+    </security:authorize>
+    <security:authorize access="!isAuthenticated()">
+        <br>
+        <form method='get' action='/cars/login'>
+            <input type='submit' class="btn btn-default" name='but2' value='Login' />
+        </form>
+    </security:authorize>
     <br>
     <hr align="left" width="50%" size="4"  /><br>
     Filters:

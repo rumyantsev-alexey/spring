@@ -1,7 +1,7 @@
 package ru.job4j.cars.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.job4j.cars.models.*;
 import ru.job4j.cars.services.*;
@@ -16,27 +16,30 @@ public class InitFillValueDb {
     private static final String[] WHEEL = new String[] {"left", "right"};
     private static final String[] TRANS = new String[] {"mechanic", "automat", "robot", "variator"};
 
+    @Autowired
+    private PasswordEncoder crypt;
+
 
     @Autowired
-    UserService userdb;
+    private UserService userdb;
     @Autowired
-    MarkService mdb;
+    private MarkService mdb;
     @Autowired
-    ModelService mddb;
+    private ModelService mddb;
     @Autowired
-    CityService citydb;
+    private CityService citydb;
     @Autowired
-    TransmissionService trdb;
+    private TransmissionService trdb;
     @Autowired
-    BodytypeService bddb;
+    private BodytypeService bddb;
     @Autowired
-    EnginestypeService edb;
+    private EnginestypeService edb;
     @Autowired
-    DriveunitService drdb;
+    private DriveunitService drdb;
     @Autowired
-    WheelService wdb;
+    private WheelService wdb;
     @Autowired
-    FotoService fdb;
+    private FotoService fdb;
 
     public void init() {
         for (var i = 0; i < BODY.length; i++) {
@@ -60,8 +63,9 @@ public class InitFillValueDb {
         for (var i = 0; i < TRANS.length; i++) {
             trdb.add(new TransmissionEntity(TRANS[i]));
         }
-        userdb.add(new UsersEntity("admin", "123", "djdj@jfj.ru"));
-        for (MarkEntity mrk: mdb.findAll()) {
+        userdb.add(new UsersEntity("admin", crypt.encode("123"), "djdj@jfj.ru"));
+        userdb.add(new UsersEntity("petro", crypt.encode("321"), "rtgff@tty.ru"));
+       for (MarkEntity mrk: mdb.findAll()) {
             mddb.add(new ModelEntity("ModelT" + mrk.getId(), mrk));
             mddb.add(new ModelEntity("ModelA" + mrk.getId(), mrk));
             mddb.add(new ModelEntity("ModelC" + mrk.getId(), mrk));
