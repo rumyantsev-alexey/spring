@@ -1,9 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ page session="true" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <title>Main page</title>
         <meta charset="utf-8">
@@ -62,9 +59,8 @@
         }
 
     </script>
-
-    <security:authorize access="isAuthenticated()">
-        Current user:<security:authentication property="principal" /> <br>
+    <div sec:authorize="isAuthenticated()">
+        Current user: <span sec:authentication="principal"></span> <br>
         <form method='post' action='/logout'>
                 <input type='submit' class="btn btn-default" name='but3' value='Logout'/>
         </form>
@@ -72,13 +68,13 @@
         <form method='get' action='/cars/add'>
            <input type='button' class="btn btn-default" name='but2' value='Add new ad' onclick="goAdd();" />
         </form>
-    </security:authorize>
-    <security:authorize access="!isAuthenticated()">
+    </div>
+    <div sec:authorize="!isAuthenticated()">
         <br>
         <form method='get' action='/cars/login'>
             <input type='submit' class="btn btn-default" name='but2' value='Login' />
         </form>
-    </security:authorize>
+    </div>
     <br>
     <hr align="left" width="50%" size="4"  /><br>
     Filters:
@@ -91,9 +87,7 @@
     </select>
     <select name="mark" id="mark">
         <option selected disabled>Выберите марку</option>
-        <c:forEach items="${requestScope.MarkEntityList}"  var="mrk">
-            <option value="${mrk.name}">${mrk.name}</option>
-        </c:forEach>
+        <option th:each="mrk:${MarkEntityList}" th:text="${mrk.name}">${mrk.name}</option>
     </select>
     <input type='button' class="btn btn-default" name='reset' id='reset' value='Сбросить' onclick="goReset();" disabled/>
     <input type='button' class="btn btn-default" name='apply' id='apply' value='Применить' onclick="goFilter();" disabled/><br>
@@ -112,7 +106,16 @@
         </tr>
         </thead>
         <tbody id="tbody">
-        <jsp:include page="table.jsp" />
+            <tr class='clickable-row' th:data-href='@{/cars/ad(id=${clist.id})}' th:each="clist:${carlist}">
+                <td><a th:href="@{/cars/ad(id=${clist.id})}" th:text="${clist.id}"></a></td>
+                <td th:text="${clist.model.name}"></td>
+                <td th:text="${clist.issue}"></td>
+                <td th:text="${clist.price}"></td>
+                <td th:text="${clist.created}"></td>
+                <td th:text="${clist.user.name}"></td>
+                <td th:text="${!clist.old}"></td>
+                <td th:text="${clist.getFotos().size()}"></td>
+            </tr>
         </tbody>
     </table>
 

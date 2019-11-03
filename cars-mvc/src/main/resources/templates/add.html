@@ -1,7 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <title>Add</title>
         <meta charset="utf-8">
@@ -49,12 +48,11 @@
                             processData: false,
                             contentType: false,
                             success: function (data) {
-                                alert('Send Ad form - OK');
+                                alert('Save Ad form - OK');
                                 window.location.href = '/cars/list';
                             },
                             error: function (data) {
-                                alert('Send Ad form - ERROR');
-                                window.location.href = '/cars/list';
+                                alert('Save Ad form - ERROR');
                             }
                         }
                     );
@@ -74,10 +72,10 @@
         </script>
 
         <h4>
-            <security:authorize access="isAuthenticated()">
-                <b>Новое объявление пользователя</b>     <security:authentication property="principal" />:
-            </security:authorize>
-       </h4>
+        <div sec:authorize="isAuthenticated()">
+            <b>Новое объявление пользователя </b><span sec:authentication="principal"></span>:
+        </div>
+        </h4>
         <div class="container-fluid">
         <form id="newAd" name="newAd" method='post' action='/cars/add' enctype="multipart/form-data">
             <div class="row">
@@ -86,19 +84,15 @@
             <label> Параметры  объявления:</label><br><br>
             <div class="row">
                 <div class="col-sm-4">
-                    <select name="city" id="city">
+                    <select name="city" id="city" required>
                     <option selected disabled>Выберите город</option>
-                    <c:forEach items="${requestScope.CityEntityList}"  var="cty">
-                        <option value="${cty.name}">${cty.name}</option>
-                    </c:forEach>
+                    <option th:each="cty:${CityEntityList}" th:text="${cty.name}">${cty.name}</option>
                     </select>
                 </div>
                 <div class="col-sm-4">
                     <select name="mark" id="mark" onchange="onChange();">
                         <option selected disabled>Выберите марку</option>
-                        <c:forEach items="${requestScope.MarkEntityList}"  var="mrk">
-                            <option value="${mrk.name}">${mrk.name}</option>
-                        </c:forEach>
+                        <option th:each="mrk:${MarkEntityList}" th:text="${mrk.name}">${mrk.name}</option>
                     </select>
                 </div>
                 <div class="col-sm-4">
@@ -125,25 +119,19 @@
                 <div class="col-sm-4">
                     <select name="trans" id="trans">
                         <option selected disabled>Выберите коробку передач</option>
-                        <c:forEach items="${requestScope.TransmissionEntityList}"  var="trs">
-                            <option value="${trs.name}">${trs.name}</option>
-                        </c:forEach>
+                        <option th:each="trs:${TransmissionEntityList}" th:text="${trs.name}">${trs.name}</option>
                     </select>
                 </div>
                 <div class="col-sm-4">
                     <select name="body" id="body">
                         <option selected disabled>Выберите тип кузова</option>
-                        <c:forEach items="${requestScope.BodytypeEntityList}"  var="bdt">
-                            <option value="${bdt.name}">${bdt.name}</option>
-                        </c:forEach>
+                        <option th:each="bdt:${BodytypeEntityList}" th:text="${bdt.name}">${bdt.name}</option>
                     </select>
                 </div>
                 <div class="col-sm-4">
                     <select name="engine" id="engine">
                         <option selected disabled>Выберите тип двигателя</option>
-                        <c:forEach items="${requestScope.EnginestypeEntityList}"  var="egt">
-                            <option value="${egt.name}">${egt.name}</option>
-                        </c:forEach>
+                        <option th:each="egt:${EnginestypeEntityList}" th:text="${egt.name}">${egt.name}</option>
                     </select>
                 </div>
             </div><br>
@@ -162,17 +150,13 @@
                 <div class="col-sm-4">
                     <select name="drive" id="drive">
                         <option selected disabled>Выберите привод</option>
-                        <c:forEach items="${requestScope.DriveunitEntityList}"  var="dru">
-                            <option value="${dru.name}">${dru.name}</option>
-                        </c:forEach>
+                        <option th:each="dru:${DriveunitEntityList}" th:text="${dru.name}">${dru.name}</option>
                     </select>
                 </div>
                 <div class="col-sm-4">
                     <select name="wheel" id="wheel">
                         <option selected disabled>Выберите тип руля</option>
-                        <c:forEach items="${requestScope.WheelEntityList}"  var="whl">
-                            <option value="${whl.name}">${whl.name}</option>
-                        </c:forEach>
+                        <option th:each="whl:${WheelEntityList}" th:text="${whl.name}">${whl.name}</option>
                     </select>
                 </div>
             </div>

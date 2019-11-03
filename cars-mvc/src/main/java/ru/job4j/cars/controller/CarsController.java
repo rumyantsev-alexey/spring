@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/cars")
 public class CarsController {
-    private static final String ANON = "anonymous";
 
     @Autowired
     private UserService userdb;
@@ -113,6 +112,7 @@ public class CarsController {
         car.setPower(form.getPower());
         car.setDunit(drdb.findById(drdb.findIdByModel(new DriveunitEntity(form.getDrive()))));
         car.setWheel(wdb.findById(wdb.findIdByModel(new WheelEntity(form.getWheel()))));
+        car.setOld(false);
         Set<FotoEntity> fotos = new HashSet<>();
         FotoEntity ft = null;
         for (var i = 0; i < form.getUpfile().length && form.getUpfile()[i].getSize() != 0; i++) {
@@ -136,7 +136,9 @@ public class CarsController {
 
     @GetMapping(value = "/ad")
     public String showAd(@RequestParam(value = "id") int id, Model model, Principal princ) {
-        model.addAttribute("loginUser", princ.getName());
+        if (princ != null) {
+            model.addAttribute("loginUser", princ.getName());
+        }
         model.addAttribute("curcar", acdb.findById(id));
         return "car";
     }
