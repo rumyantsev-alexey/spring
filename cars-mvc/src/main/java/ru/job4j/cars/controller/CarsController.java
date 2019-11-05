@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.cars.repositories.InitFillValueDb;
 import ru.job4j.cars.services.*;
 import ru.job4j.cars.models.*;
 import ru.job4j.cars.forms.*;
 import org.springframework.http.*;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
@@ -47,13 +45,6 @@ public class CarsController {
     private WheelService wdb;
     @Autowired
     private FotoService fdb;
-    @Autowired
-    private InitFillValueDb rrr;
-
-    @PostConstruct
-    public void initDb() {
-        rrr.init();
-    }
 
     @GetMapping(value = "/login")
     public String login() {

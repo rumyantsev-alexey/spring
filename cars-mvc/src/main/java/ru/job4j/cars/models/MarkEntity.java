@@ -11,15 +11,18 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
+@Table(name = "mark")
 public class MarkEntity extends AbsProjectEntity {
 
     @Getter
     @Setter
+    @Column(name = "model")
     @OneToMany(mappedBy = "mark", fetch = FetchType.EAGER)
     private Set<ModelEntity> model = new HashSet<>();
 
     @Getter
     @Setter
+    @Column(name = "car")
     @OneToMany(mappedBy = "mark", fetch = FetchType.EAGER)
     private Set<CarEntity> car = new HashSet<>();
 

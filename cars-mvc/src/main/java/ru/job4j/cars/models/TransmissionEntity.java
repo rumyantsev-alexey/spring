@@ -11,10 +11,12 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
+@Table(name = "transmission")
 public class TransmissionEntity extends AbsProjectEntity {
 
     @Getter
     @Setter
+    @Column(name = "car")
     @OneToMany(mappedBy = "trans", fetch = FetchType.EAGER)
     private Set<CarEntity> car = new HashSet<>();
 

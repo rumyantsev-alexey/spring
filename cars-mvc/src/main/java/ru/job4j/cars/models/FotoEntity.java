@@ -6,17 +6,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-//@Embeddable
 @Entity
 @NoArgsConstructor
+@Table(name = "fotos")
 public class FotoEntity extends AbsProjectEntity {
 
     @Getter
     @Setter
-    private String name;
-
-    @Getter
-    @Setter
+    @Column(name = "foto")
     @Lob
     private byte[] foto;
 

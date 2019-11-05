@@ -1,6 +1,5 @@
 package ru.job4j.cars.models;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,50 +12,92 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-@Data
+@Table(name = "cars")
 public class CarEntity extends AbsProjectEntity {
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private UsersEntity user;
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private CityEntity city;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH})
+    @Getter
+    @Setter
+   @ManyToOne(cascade = {CascadeType.REFRESH})
     private MarkEntity mark;
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private ModelEntity model;
 
+    @Getter
+    @Setter
+    @Column(name = "price")
     private Integer price;
 
+    @Getter
+    @Setter
+    @Column(name = "issue")
     private Integer issue;
 
+    @Getter
+    @Setter
+    @Column(name = "dist")
     private Integer dist;
 
+    @Getter
+    @Setter
+    @Column(name = "enginecapacity")
     private Integer enginecapacity;
 
+    @Getter
+    @Setter
+    @Column(name = "power")
     private Integer power;
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private TransmissionEntity trans;
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private BodytypeEntity btype;
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private EnginestypeEntity etype;
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private DriveunitEntity dunit;
 
+    @Getter
+    @Setter
     @ManyToOne(cascade = {CascadeType.REFRESH})
     private WheelEntity wheel;
 
+    @Getter
+    @Setter
+    @Column(name = "created")
     private Timestamp created;
 
+    @Getter
+    @Setter
+    @Column(name = "old")
     private boolean old;
 
+    @Getter
+    @Setter
+    @Column(name = "fotos")
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Set<FotoEntity> fotos = new HashSet<>();
 

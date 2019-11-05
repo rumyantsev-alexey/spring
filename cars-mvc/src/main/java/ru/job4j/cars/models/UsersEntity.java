@@ -1,11 +1,9 @@
 package ru.job4j.cars.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,14 +11,19 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"email", "city", "car"}, callSuper = true)
+@Table(name = "users")
 public class UsersEntity extends AbsProjectEntity {
 
     @Getter
     @Setter
+    @NonNull
+    @Column(name = "password")
     private String password;
 
     @Getter
     @Setter
+    @Email
+    @Column(name = "email")
     private String email;
 
     @Getter
@@ -30,6 +33,7 @@ public class UsersEntity extends AbsProjectEntity {
 
     @Getter
     @Setter
+    @Column(name = "car")
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<CarEntity> car = new HashSet<>();
 
