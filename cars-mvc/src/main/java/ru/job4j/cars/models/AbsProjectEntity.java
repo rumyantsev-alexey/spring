@@ -2,17 +2,14 @@ package ru.job4j.cars.models;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 @EqualsAndHashCode(exclude = {"id"})
 public abstract class AbsProjectEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     @Getter
     private int id;
 

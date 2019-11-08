@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.job4j.cars.security.AuthProviderImpl;
+import ru.job4j.cars.security.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -18,11 +18,11 @@ import ru.job4j.cars.security.AuthProviderImpl;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AuthProviderImpl authp;
+    private UserDetailServiceImpl userService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authp);
+        auth.userDetailsService(userService);
     }
 
     @Override

@@ -87,7 +87,7 @@ public class CarsController {
     }
 
     @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public String postNewAdForm(@ModelAttribute AddAdsForm form, Model model,  HttpSession session, Principal princ) throws IOException {
+    public String postNewAdForm(@ModelAttribute AddAdsForm form, Principal princ) throws IOException {
         CarEntity car = new CarEntity(form.getNote());
         car.setUser(userdb.findByName(princ.getName()));
         car.setCity(citydb.findById(citydb.findIdByModel(new CityEntity(form.getCity()))));
