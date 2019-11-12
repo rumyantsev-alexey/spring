@@ -12,6 +12,7 @@ import org.springframework.http.*;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -58,7 +59,10 @@ public class CarsController {
 
     @GetMapping(value = "/list")
     public String getListAds(Model model) {
-        model.addAttribute("carlist", acdb.findAll());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        List<CarEntity> list = acdb.findAll();
+        list.forEach((x) -> x.setDate(sdf.format(x.getCreated())));
+        model.addAttribute("carlist", list);
         model.addAttribute("MarkEntityList", mdb.findAll());
         return "list";
     }

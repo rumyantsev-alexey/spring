@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
-        <title>Add</title>
+        <title>Добавление объявления</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Cache-Control" content="no-cache">
@@ -79,7 +79,7 @@
         <div class="container-fluid">
         <form id="newAd" name="newAd" method='post' action='/cars/add' enctype="multipart/form-data">
             <div class="row">
-                <div class="col-sm-4"> <label for="note">Текст объявления:</label> <textarea name="note" id="note" ></textarea> </div>
+                <div class="col-sm-4"> <label for="note">Текст объявления:</label> <textarea class="form-control" rows="5" name="note" id="note" ></textarea> </div>
             </div><br>
             <label> Параметры  объявления:</label><br><br>
             <div class="row">

@@ -3,6 +3,7 @@ package ru.job4j.cars.models;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -89,6 +90,11 @@ public class CarEntity extends AbsProjectEntity {
     @Setter
     @Column(name = "created")
     private Timestamp created;
+
+    @Getter
+    @Setter
+    @Transient
+    private String date;
 
     @Getter
     @Setter

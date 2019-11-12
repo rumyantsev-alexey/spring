@@ -3,7 +3,8 @@
     <td th:text="${clist.model.name}"></td>
     <td th:text="${clist.issue}"></td>
     <td th:text="${clist.price}"></td>
-    <td th:text="${clist.created}"></td>
+    <td th:text="${clist.date}"></td>
     <td th:text="${clist.user.name}"></td>
-    <td th:text="${clist.old}"></td>
+    <td class="text-center"><span th:if="${!clist.old}" class="glyphicon glyphicon-ok"></span><span th:if="${clist.old}" class="glyphicon glyphicon-remove"></span></td>
     <td th:text="${clist.getFotos().size()}"></td>
+</tr>
