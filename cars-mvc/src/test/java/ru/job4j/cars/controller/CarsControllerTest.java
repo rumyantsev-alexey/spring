@@ -169,24 +169,9 @@ public class CarsControllerTest {
     }
     @Test
     public void getAdWithAnon() throws Exception {
-        CarEntity car = new CarEntity();
-        car.setNote("test");
-        car.setCity(citys.findByName("London"));
-        car.setMark(ms.findByName("VAZ"));
-        car.setModel(mds.findByName("Model25"));
-        car.setTrans(trs.findByName("automat"));
-        car.setBtype(bds.findByName("hetchbag"));
-        car.setEtype(es.findByName("hybrid"));
-        car.setDunit(drs.findByName("zadnij"));
-        car.setWheel(ws.findByName("right"));
-        car.setUser(userds.findByName("admin"));
-        int i = acs.add(car);
-        this.mockMvc.perform(get("/cars/ad")
-                .param("id", Integer.toString(i))
-                ).andExpect(status().isOk())
-                .andExpect(model().attributeDoesNotExist("loginUser"))
-                .andExpect(model().attributeExists("curcar"))
-                .andExpect(view().name("car"));
+        this.mockMvc.perform(get("/cars/ad"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("**/login"));
     }
 
     @Test

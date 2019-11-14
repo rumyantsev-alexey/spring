@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>13</java.version>
+        <java.version>12</java.version>
     </properties>
 
     <dependencyManagement>
@@ -137,7 +137,7 @@
                     <skipTests>false</skipTests>
                 </configuration>
             </plugin>
-        </plugins>
+       </plugins>
     </build>
 
 </project>
