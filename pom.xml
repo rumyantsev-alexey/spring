@@ -12,7 +12,7 @@
 
 	<modules>
 		<module>cars-mvc</module>
-	</modules>
+    </modules>
 
 	<dependencies>
 		<dependency>

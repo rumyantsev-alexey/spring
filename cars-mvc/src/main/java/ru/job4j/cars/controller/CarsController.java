@@ -1,15 +1,18 @@
 package ru.job4j.cars.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.cars.services.*;
+import ru.job4j.cars.forms.ActionListForm;
+import ru.job4j.cars.forms.AddAdsForm;
 import ru.job4j.cars.models.*;
-import ru.job4j.cars.forms.*;
-import org.springframework.http.*;
+import ru.job4j.cars.services.*;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -61,7 +64,9 @@ public class CarsController {
     public String getListAds(Model model) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         List<CarEntity> list = acdb.findAll();
-        list.forEach((x) -> x.setDate(sdf.format(x.getCreated())));
+        if (list != null) {
+            list.forEach((x) -> x.setDate(sdf.format(x.getCreated())));
+        }
         model.addAttribute("carlist", list);
         model.addAttribute("MarkEntityList", mdb.findAll());
         return "list";
@@ -73,7 +78,11 @@ public class CarsController {
         List<String> params = new ArrayList<>();
         params.add(actlist.getAction());
         params.add(actlist.getMark());
-        List result = acdb.findAllCarsWithFilter(params);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        List<CarEntity> result = acdb.findAllCarsWithFilter(params);
+        if (result != null) {
+            result.forEach((x) -> x.setDate(sdf.format(x.getCreated())));
+        }
         model.addAttribute("carlist", result);
         return "table";
     }

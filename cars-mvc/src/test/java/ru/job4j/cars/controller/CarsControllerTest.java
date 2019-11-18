@@ -1,6 +1,7 @@
 package ru.job4j.cars.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,11 @@ public class CarsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @After
+    public void clearCars() {
+        acs.findAll().forEach((x) -> acs.delete(x.getId()));
+    }
 
     @Test
     public void getLoginPage() throws Exception {

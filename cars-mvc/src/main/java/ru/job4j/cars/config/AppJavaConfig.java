@@ -7,7 +7,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
-//@EnableWebMvc
 @ComponentScan("ru.job4j.cars.*")
 public class AppJavaConfig {
 
