@@ -12,7 +12,8 @@
 
 	<modules>
 		<module>cars-mvc</module>
-    </modules>
+		<module>infobip</module>
+	</modules>
 
 	<dependencies>
 		<dependency>
