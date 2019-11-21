@@ -2,13 +2,15 @@ package ru.job4j.shortener.models;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "users")
 @Data
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -23,5 +25,9 @@ public class User {
 
     @Column
     @OneToMany(mappedBy = "user")
-    private List<Links> links;
+    private List<Link> links;
+
+    public User(String username) {
+        this.name = username;
+    }
 }

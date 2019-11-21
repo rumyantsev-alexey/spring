@@ -26,12 +26,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//        .antMatchers("/cars/login", "/cars/list", "/cars/models", "/cars/image").permitAll()
-//        .antMatchers("/cars/add").authenticated()
-//        .anyRequest().authenticated()
-        .anyRequest().permitAll()
+        .antMatchers("/account", "/", "/webjars/**", "/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",
+                "/configuration/security/**", "/swagger-ui.html/**", "/swagger-ui.html#/**", "/swagger-ui.html").permitAll()
+        .anyRequest().authenticated()
         .and()
-        .csrf().disable();
+        .csrf().disable()
+        .httpBasic();
    }
 
     @Bean

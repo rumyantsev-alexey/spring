@@ -1,13 +1,15 @@
 package ru.job4j.shortener.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table
 @Data
-public class Links {
+@NoArgsConstructor
+public class Link {
 
     @Id
     @GeneratedValue
@@ -20,9 +22,9 @@ public class Links {
     private String result;
 
     @Column
-    private Integer count;
+    private int count;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.REFRESH})
     private User user;
 
 }
