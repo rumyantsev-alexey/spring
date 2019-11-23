@@ -3,6 +3,7 @@ package ru.job4j.shortener.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.shortener.RandomString;
 import ru.job4j.shortener.models.User;
 import ru.job4j.shortener.repositories.UsersRepository;
@@ -21,6 +22,7 @@ public class UsersService {
         return users.findByName(name);
     }
 
+    @Transactional
     public String createUserByUsername(String username) {
         User user = new User(username);
         String password = RandomString.genString(PASS_LEN);

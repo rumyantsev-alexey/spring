@@ -1,7 +1,9 @@
 package ru.job4j.shortener.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.shortener.RandomString;
 import ru.job4j.shortener.models.Link;
 import ru.job4j.shortener.models.User;
@@ -13,18 +15,16 @@ public class LinksService {
 
     @Autowired
     private LinksRepository linkr;
-//    @Autowired
-//    private UsersRepository usr;
 
-    public String getShotLink(String dest, User user) {
+    @Transactional
+    public String getShotLink(String dest, User user, HttpStatus status) {
         String surl = RandomString.genString(SURL_LEN);
         Link newlink = new Link();
         newlink.setSource(dest);
         newlink.setResult(surl);
+        newlink.setStatus(status);
         newlink.setUser(user);
-        newlink = linkr.save(newlink);
-//        user.getLinks().add(newlink);
-//        usr.save(user);
+        linkr.save(newlink);
         return surl;
     }
 

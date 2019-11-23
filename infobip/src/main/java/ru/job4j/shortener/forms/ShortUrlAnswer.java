@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-@ApiModel(value = "укороченный url")
+@ApiModel
 public class ShortUrlAnswer {
-    @ApiModelProperty(value = "укороченный url")
+    @ApiModelProperty(value = "укороченный 'url'")
     @Getter
     private String url;
 }

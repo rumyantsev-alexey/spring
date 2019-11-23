@@ -7,14 +7,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "ответ на запрос на получение нового аккаунта")
+@ApiModel
 public class AccAnswer {
-    @ApiModelProperty(value = "создан или нет")
+    @ApiModelProperty(value = "создан аккаунт или нет")
     private boolean result;
 
     @ApiModelProperty(value = "описание результата")
     private String description;
 
-    @ApiModelProperty(value = "сгенерированный пароль")
+    @ApiModelProperty(value = "сгенерированный пароль у новому аккаунту")
     private String password;
 }

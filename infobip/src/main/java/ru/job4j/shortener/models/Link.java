@@ -2,6 +2,7 @@ package ru.job4j.shortener.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.*;
 
@@ -20,6 +21,10 @@ public class Link {
 
     @Column
     private String result;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private HttpStatus status;
 
     @Column
     private int count;
