@@ -19,7 +19,7 @@ public class Link {
     @Column
     private String source;
 
-    @Column
+    @Column(unique = true)
     private String result;
 
     @Column

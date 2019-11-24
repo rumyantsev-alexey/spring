@@ -38,16 +38,14 @@ public class SwaggerConfig {
     @Bean
     public ApiInfo apiInfo() {
         final ApiInfoBuilder builder = new ApiInfoBuilder();
-        builder.title("REST API для укорачивания ссылок").version("1.0")
-                .description("Описание API написанное на Swagger UI");
+        builder.title("API для создания, хранения и использования укороченных ссылок").version("1.0")
+                .description("Просто зарегистрируйся и пользуйся Ж:-)");
         return builder.build();
     }
 
     @Bean
     public UiConfiguration tryItOutConfig() {
-//       final String[] methodsWithTryItOutButton = { "post" };
         return UiConfigurationBuilder.builder()
-//                .supportedSubmitMethods(methodsWithTryItOutButton)
                 .defaultModelsExpandDepth(-1).build();
     }
 }

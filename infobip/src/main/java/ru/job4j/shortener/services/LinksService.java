@@ -31,4 +31,8 @@ public class LinksService {
     public Link findByResult(String result) {
         return linkr.findByResult(result);
     }
+
+    public Link save(Link link) {
+        return linkr.save(link);
+    }
 }

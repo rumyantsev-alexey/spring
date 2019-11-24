@@ -116,6 +116,8 @@ public class ShortenerController {
             HttpHeaders headers = new HttpHeaders();
             headers.add("Location", link.getSource());
             res = new ResponseEntity<>(headers, link.getStatus());
+            link.setCount(link.getCount() + 1);
+            linkserv.save(link);
         }
         return res;
     }
